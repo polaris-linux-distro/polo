@@ -1,6 +1,7 @@
 #!/bin/python
 import argparse
 import os
+import pcore
 
 def secure_wipe(dev):
     print(f"Securely wiping {dev}")
@@ -14,7 +15,7 @@ def rebuild_boot():
     os.system("sudo grub-mkconfig -o /boot/grub/grub.cfg")
 
 def banner():
-    print("polo-adm | Polaris Polo Admin Tools")
+    print(f"polo-adm | Polaris Polo Admin Tools | {pcore.VERSION}")
     print("---------------------------------------------------")
 
 def main():
@@ -35,5 +36,7 @@ def main():
         rebuild_boot()
     elif args.command == "secure-wipe":
         secure_wipe(args.disk)
+    else:
+        parser.print_help()
 if __name__ == '__main__':
     main()

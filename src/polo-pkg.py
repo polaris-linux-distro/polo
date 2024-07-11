@@ -1,6 +1,7 @@
 #!/bin/python
 import os
 import argparse
+import pcore
 
 # this library was a pain in the ass, so don't expect sanity in any of these code comments.
 import aur
@@ -33,7 +34,12 @@ def update():
     if ostype == "cli":
         flatpak("update")
 
+def banner():
+    print(f"polo-pkg | Polaris Polo Package Manager | {pcore.VERSION}")
+    print("---------------------------------------------------")
+
 def main():
+    banner()
     parser = argparse.ArgumentParser(description="The package manager for Polaris GNU/Linux.")
     subparsers = parser.add_subparsers(dest='command', help='commands')
 
