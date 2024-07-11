@@ -55,6 +55,9 @@ def main():
     search_parser.add_argument('package', type=str, help='The package to search for')
     search_parser.add_argument('-f', '--flatpak', action='store_true', help='Search for a package from Flatpak')
 
+    # Build command
+    build_parser = subparsers.add_parser('build', help='Build a package from source')
+
     args = parser.parse_args()
 
     # Perfectly sane... just ignore the piles of if statements
@@ -85,6 +88,8 @@ def main():
                 flatpak(f"search {args.package}")
         elif args.flatpak != True:
             aur.search(args.package)
+    elif args.command == "build":
+        os.system("makepkg -si")
     else:
         parser.print_help()
 
