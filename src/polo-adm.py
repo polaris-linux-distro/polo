@@ -4,30 +4,22 @@ import os
 import pcore
 import psutil
 
-def dskbytecpy_limitout(src, out):
-    # Open the SRC and OUT devices
-    src_io = open(src, "r")
-    out_io = open(out, "w")
-    # Get the output device size
-    out_size = psutil.disk_usage(out)
-
-    # Now write the SRC data to the OUT device.
-    out_io.write(src_io.read(out_size))
-
-def dskbytecpy(src, out):
-    # Open the SRC and OUT devices
-    src_io = open(src, "r")
-    out_io = open(out, "w")
-
-    # Now write the SRC data to the OUT device.
-    out_io.write(src_io.read())
+def get_device_size(device):
+    # Get the size of the device in bytes using `blockdev` command
+    statvfs = os.statvfs(device)
+    return statvfs.f_frsize * statvfs.f_blocks
 
 def secure_wipe(dev):
     print(f"Securely wiping {dev}")
     print("This may take a while...")
-    dskbytecpy_limitout("/dev/zero", dev)
-    dskbytecpy_limitout("/dev/urandom", dev)
-    dskbytecpy_limitout("/dev/zero", dev)
+    # Convert size from MB to bytes
+    size_bytes = get_device_size(dev) * 1024 * 1024
+    
+    with open(dev, 'wb') as disk:
+        for _ in range(size_bytes):
+            # Write a random byte to the disk
+            disk.write(os.urandom(1))
+
 
 def rebuild_boot():
     print("Rebuilding boot info")

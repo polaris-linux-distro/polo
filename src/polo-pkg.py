@@ -7,8 +7,12 @@ import pcore
 import aur
 
 # i need to replace this... ever. pls rember
-f = open("/etc/polaris/type", "r")
-ostype = f.read().strip()
+# f = open("/etc/polaris/type", "r")
+# ostype = f.read().strip()
+# i did rember
+config = pcore.config()
+ostype = config["conf"]["type"]
+ostask = config["conf"]["task"]
 
 # not the game, moron
 def pacman(args):
@@ -100,7 +104,8 @@ def main():
         parser.print_help()
 
     # Remember the garbage collector, dumbass.
-    f.close()
+    # No, don't, we switched to another method (sys.conf)
+    # f.close()
 
 # nae nae
 if __name__ == '__main__':
