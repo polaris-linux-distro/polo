@@ -19,3 +19,5 @@ cfgusr = config_usr()
 ostype = cfg["conf"]["type"]
 ostask = cfg["conf"]["task"]
 terminal = cfgusr["conf"]["terminal"]
+browser = cfgusr["conf"]["browser"]
+editor = cfgusr["conf"]["editor"]
