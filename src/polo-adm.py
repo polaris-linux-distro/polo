@@ -2,7 +2,6 @@
 import argparse
 import os
 import pcore
-import psutil
 
 def get_device_size(device):
     statvfs = os.statvfs(device)
