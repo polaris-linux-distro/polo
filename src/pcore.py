@@ -12,3 +12,4 @@ def config():
 cfg = config()
 ostype = cfg["conf"]["type"]
 ostask = cfg["conf"]["task"]
+terminal = cfg["conf"]["terminal"]

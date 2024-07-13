@@ -6,7 +6,7 @@ import pcore
 import zmq
 
 def terminal():
-    subprocess.Popen(["ptyxis"])
+    subprocess.Popen([pcore.terminal])
 
 def main():
     if pcore.ostype == "svr":
