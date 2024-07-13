@@ -20,5 +20,7 @@ def main():
         message = socket.recv_string()
         if message == "open_terminal":
             terminal()
-            socket.send_string("Terminal opened")
-main()
+            socket.send_string("terminal_opened")
+
+if __name__ == '__main__':
+    main()

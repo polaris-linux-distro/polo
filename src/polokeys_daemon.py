@@ -1,5 +1,7 @@
+#!/usr/bin/python
 import zmq
 import keyboard
+import pcore
 
 def open_terminal():
     context = zmq.Context()
@@ -9,8 +11,15 @@ def open_terminal():
     message = socket.recv_string()
     print(f"Received reply: {message}")
 
-# Set up the keyboard shortcut
-keyboard.add_hotkey('ctrl+alt+t', open_terminal)
+def main():
+    if pcore.ostype == "svr":
+        print("running on server, so nah")
+        return
+    # Set up the keyboard shortcut
+    keyboard.add_hotkey('ctrl+alt+t', open_terminal)
 
-print("Service running. Press CTRL+ALT+T to open a terminal.")
-keyboard.wait('esc')
+    print("Service running. Press CTRL+ALT+T to open a terminal.")
+    keyboard.wait('esc')
+
+if __name__ == '__main__':
+    main()

@@ -10,5 +10,5 @@ def config():
     return configparser_
 
 cfg = config()
-ostype = config["conf"]["type"]
-ostask = config["conf"]["task"]
+ostype = cfg["conf"]["type"]
+ostask = cfg["conf"]["task"]
