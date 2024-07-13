@@ -1,24 +1,24 @@
-#!/bin/python
+#!/usr/bin/python
 import argparse
 import os
 import pcore
 import psutil
 
 def get_device_size(device):
-    # Get the size of the device in bytes using `blockdev` command
     statvfs = os.statvfs(device)
-    return statvfs.f_frsize * statvfs.f_blocks
+    return statvfs.f_blocks
 
 def secure_wipe(dev):
-    print(f"Securely wiping {dev}")
-    print("This may take a while...")
-    # Convert size from MB to bytes
-    size_bytes = get_device_size(dev) * 1024 * 1024
-    
-    with open(dev, 'wb') as disk:
-        for _ in range(size_bytes):
-            # Write a random byte to the disk
-            disk.write(os.urandom(1))
+    size = get_device_size(dev)
+    for _ in range(3):
+        dev_io = open(dev, "wb")
+        dev_io.write(os.urandom(size))
+        dev_io.close()
+
+    for _ in range(3):
+        dev_io = open(dev, "wb")
+        dev_io.write(b'\x00' * size)
+        dev_io.close()
 
 
 def rebuild_boot():

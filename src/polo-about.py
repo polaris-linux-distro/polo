@@ -1,4 +1,4 @@
-#!/bin/python
+#!/usr/bin/python
 import pcore
 
 print(f"Polo | Polaris utilities | {pcore.VERSION}")

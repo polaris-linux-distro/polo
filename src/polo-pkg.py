@@ -1,4 +1,4 @@
-#!/bin/python
+#!/usr/bin/python
 import os
 import argparse
 import pcore
@@ -10,9 +10,6 @@ import aur
 # f = open("/etc/polaris/type", "r")
 # ostype = f.read().strip()
 # i did rember
-config = pcore.config()
-ostype = config["conf"]["type"]
-ostask = config["conf"]["task"]
 
 # not the game, moron
 def pacman(args):
@@ -35,7 +32,7 @@ def update():
     cacheclear()
     os.system("sudo pacman -Syyu")
     aur.update()
-    if ostype == "cli":
+    if pcore.ostype == "cli":
         flatpak("update")
 
 def banner():
@@ -76,25 +73,25 @@ def main():
         update()
     elif args.command == 'install':
         if args.flatpak:
-            if ostype == "svr":
+            if pcore.ostype == "svr":
                 print("Flatpak is not supported on Polaris Server.")
-            elif ostype == "cli":
+            elif pcore.ostype == "cli":
                 flatpak(f"install {args.package}")
         elif args.flatpak != True:
             aur.install(args.package)
     elif args.command == 'remove':
         if args.flatpak:
-            if ostype == "svr":
+            if pcore.ostype == "svr":
                 print("Flatpak is not supported on Polaris Server.")
-            elif ostype == "cli":
+            elif pcore.ostype == "cli":
                 flatpak(f"remove {args.package}")
         elif args.flatpak != True:
             pacman(f"-R {args.package}")
     elif args.command == 'search':
         if args.flatpak:
-            if ostype == "svr":
+            if pcore.ostype == "svr":
                 print("Flatpak is not supported on Polaris Server.")
-            elif ostype == "cli":
+            elif pcore.ostype == "cli":
                 flatpak(f"search {args.package}")
         elif args.flatpak != True:
             aur.search(args.package)

@@ -8,3 +8,7 @@ def config():
     configparser_ = configparser.ConfigParser()
     configparser_.read("/etc/polaris/sys.conf")
     return configparser_
+
+cfg = config()
+ostype = config["conf"]["type"]
+ostask = config["conf"]["task"]
