@@ -1,0 +1,14 @@
+----------------------------------------------------------------------------------------------
+
+Welcome to the terminal! 
+
+Here is your reminder to update your system every so often:
+
+$ polo-pkg update
+
+Homepage: https://polaris-linux.github.io/
+Bug reporting: https://github.com/polaris-linux/polaris/issues
+
+You may disable this message by placing a file called ".nobanner" in your home folder
+
+----------------------------------------------------------------------------------------------

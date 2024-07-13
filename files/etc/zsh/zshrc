@@ -1,0 +1,11 @@
+precmd() {
+    print -rP "(%F{blue}%n%f @ %F{blue}%m%f - %F{blue}%~%f)"
+}
+PROMPT="%F{green}%#>>%f "
+
+alias cd..="cd .."
+alias cd.="cd ."
+
+if [ ! -f ~/.nobanner ]; then
+    cat /etc/polaris/banner
+fi
