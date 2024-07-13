@@ -29,9 +29,13 @@ def package_exists(package_name):
 
 def get_installed_aur_packages():
     # do.. do you need a comment here? its just gives you the installed packages.
+    aur_packages = list()
     output = subprocess.check_output(['sudo', 'pacman', '-Qm'])
     packages = output.decode('utf-8').splitlines()
-    aur_packages = [pkg.split()[0] for pkg in packages]
+    aur_packages_bfp = [pkg.split()[0] for pkg in packages]
+    for pkg in aur_packages_bfp:
+        if package_exists(pkg):
+             aur_packages.append(pkg)
     return aur_packages
 
 def check_for_updates():
@@ -61,7 +65,14 @@ def update():
     print("Updating the following AUR packages:")
     for pkg in updates:
         print(f"- {pkg}")
-        os.system(f"sudo pacman -R {pkg} --noconfirm")
+
+    allpkg = str()
+    for pkg in updates:
+        # just call once, very efficent
+        allpkg += pkg
+    os.system(f"sudo pacman -R {allpkg} --noconfirm")
+    
+    for pkg in updates:
         install(pkg, True)
 
 def package_exists_pacrepos(package_name):
