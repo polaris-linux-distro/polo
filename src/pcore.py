@@ -9,7 +9,13 @@ def config():
     configparser_.read("/etc/polaris/sys.conf")
     return configparser_
 
+def config_usr():
+    configparser_ = configparser.ConfigParser()
+    configparser_.read("/etc/polaris/usr.conf")
+    return configparser_
+
 cfg = config()
+cfgusr = config_usr()
 ostype = cfg["conf"]["type"]
 ostask = cfg["conf"]["task"]
-terminal = cfg["conf"]["terminal"]
+terminal = cfgusr["conf"]["terminal"]
