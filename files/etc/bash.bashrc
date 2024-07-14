@@ -5,6 +5,9 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+alias cd..="cd .."
+alias cd.="cd ."
+
 GREEN="\[\e[1;32m\]"
 BLUE="\[\e[1;34m\]" 
 RESET="\[\e[0m\]"
