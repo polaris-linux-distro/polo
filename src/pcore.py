@@ -1,4 +1,5 @@
 import configparser
+import os
 
 VERSION = 1.0
 
@@ -11,7 +12,7 @@ def config():
 
 def config_usr():
     configparser_ = configparser.ConfigParser()
-    configparser_.read("/etc/polaris/usr.conf")
+    configparser_.read(f"{os.path.expanduser("~")}/usr.conf")
     return configparser_
 
 cfg = config()

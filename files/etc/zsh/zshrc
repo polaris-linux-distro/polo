@@ -1,7 +1,16 @@
+# gotta add:
+# fish
+# xonsh
+# tcsh
+# nushell
+# elvish
+# to the profile stuff
+
+
 precmd() {
-    print -rP "(%F{blue}%n%f @ %F{blue}%m%f - %F{blue}%~%f)"
+    print -rP "( %F{blue}%n%f @ %F{blue}%m%f - %F{blue}%~%f )"
 }
-PROMPT="%F{green}%#>>%f "
+PROMPT="%F{green}>>%f "
 
 alias cd..="cd .."
 alias cd.="cd ."
