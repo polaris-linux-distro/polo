@@ -8,6 +8,8 @@ def get_device_size(device):
     statvfs = os.statvfs(device)
     return statvfs.f_blocks
 
+# lil note about this function:
+# fucking kill me now AAAAAAAAAAAAAAAAAAAAAAAAAAAA
 def secure_wipe(dev):
     print("Removing the master boot record...")
     os.system(f"dd if=/dev/zero of={dev} bs=446 count=1")
@@ -31,13 +33,14 @@ def diskcpy(src, out):
         print("Error: Source device is bigger than output device")
         print("Aborting")
         return
-    with tqdm.tqdm(range(src_size * 2), unit="chunk") as tq:
+    with tqdm.tqdm(range(src_size), unit="chunk") as tq:
         with open(src, "rb") as src_io:
             out_io = open(out, "wb+")
             for __ in range(src_size):
                 tq.update()
-                src_io.write(out_io.read())
+                out_io.write(src_io.read())
 
+# well ain't dat simpel
 def rebuild_boot():
     print("Rebuilding boot info")
     os.system("mkinitcpio -P")
