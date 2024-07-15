@@ -1,0 +1,15 @@
+pkgname=polo-core
+pkgver=1.0
+pkgrel=1
+pkgdesc="Polaris core configs, Polo utils, Polaris core essentially."
+arch=('any')
+license=('GPL')
+source=('src/' 'files')
+md5sums=('SKIP' 'SKIP')
+
+package() {
+    cd "$srcdir/files"
+    find . -type f -exec install -Dm644 {} "$pkgdir/{}" \;
+    cd "$srcdir/src"
+    find . -type f -exec install -Dm644 {} "$pkgdir/usr/share/polaris/{}" \;
+}

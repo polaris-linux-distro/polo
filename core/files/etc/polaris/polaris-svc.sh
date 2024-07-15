@@ -11,4 +11,6 @@ if [ ! ostype == "svr" ]; then
     export BROWSER=$(get_ini_value "conf" "browser" "$HOME/usr.conf")
 fi
 
+PATH="$PATH:/usr/share/polaris"
+
 /usr/bin/python /usr/share/polaris/polokeys_user.py

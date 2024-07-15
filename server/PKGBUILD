@@ -1,0 +1,13 @@
+pkgname=polo-server
+pkgver=1.0
+pkgrel=1
+pkgdesc="Polaris server configs"
+arch=('any')
+license=('GPL')
+source=('files-server')
+md5sums=('SKIP')
+
+package() {
+    cd "$srcdir/files-server"
+    find . -type f -exec install -Dm644 {} "$pkgdir/{}" \;
+}
