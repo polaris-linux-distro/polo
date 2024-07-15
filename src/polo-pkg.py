@@ -65,6 +65,9 @@ def main():
     # Build command
     build_parser = subparsers.add_parser('build', help='Build a package from source')
 
+    # Autoremove command
+    auto_remove_parser = subparsers.add_parser('autoremove', help='Removes orphaned packages')
+
     args = parser.parse_args()
 
     # Perfectly sane... just ignore the piles of if statements
@@ -97,6 +100,8 @@ def main():
             aur.search(args.package)
     elif args.command == "build":
         os.system("makepkg -si")
+    elif args.command == "autoremove":
+        os.system("sudo pacman -Rns $(pacman -Qdtq)")
     else:
         parser.print_help()
 
