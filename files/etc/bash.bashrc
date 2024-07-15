@@ -5,6 +5,8 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+source /etc/polaris/lib.sh
+
 alias cd..="cd .."
 alias cd.="cd ."
 
@@ -22,8 +24,9 @@ if [ ! -f ~/.nobanner ]; then
     cat /etc/polaris/banner
 fi
 
-source /etc/polaris/lib.sh
-
-export TERMINAL=$(get_ini_value "conf" "terminal" "$HOME/usr.conf")
-export BROWSER=$(get_ini_value "conf" "browser" "$HOME/usr.conf")
 export EDITOR=$(get_ini_value "conf" "editor" "$HOME/usr.conf")
+if [ ! ostype == "svr" ]; then
+    export XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS"
+    export TERMINAL=$(get_ini_value "conf" "terminal" "$HOME/usr.conf")
+    export BROWSER=$(get_ini_value "conf" "browser" "$HOME/usr.conf")
+fi

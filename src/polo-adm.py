@@ -26,20 +26,6 @@ def secure_wipe(dev):
                 tq.update()
                 dev_io.write(b'\x00')
 
-def diskcpy(src, out):
-    src_size = get_device_size(src)
-    out_size = get_device_size(out)
-    if src_size > out_size:
-        print("Error: Source device is bigger than output device")
-        print("Aborting")
-        return
-    with tqdm.tqdm(range(src_size), unit="chunk") as tq:
-        with open(src, "rb") as src_io:
-            out_io = open(out, "wb+")
-            for __ in range(src_size):
-                tq.update()
-                out_io.write(src_io.read())
-
 # well ain't dat simpel
 def rebuild_boot():
     print("Rebuilding boot info")
@@ -59,11 +45,6 @@ def main():
     secure_wipe_parser = subparsers.add_parser('secure-wipe', help='Securely overwrites the data of a disk, removing any trace of data. (may take a few hours!)')
     secure_wipe_parser.add_argument('disk', type=str, help='The disk to wipe')
 
-    # Disk Image command
-    disk_copy_parser = subparsers.add_parser('disk-cpy', help='Copys the content of a disk to a file/other disk.')
-    disk_copy_parser.add_argument('src', type=str, help='Source disk')
-    disk_copy_parser.add_argument('out', type=str, help='Output disk')
-
     # Rebuild-boot command
     rebuild_boot_parser = subparsers.add_parser('rebuild-boot', help='Rebuilds the GRUB config, as well as the initramfs.')
 
@@ -73,8 +54,6 @@ def main():
         rebuild_boot()
     elif args.command == "secure-wipe":
         secure_wipe(args.disk)
-    elif args.command == "disk-cpy":
-        diskcpy(args.src, args.out)
     else:
         parser.print_help()
 if __name__ == '__main__':
