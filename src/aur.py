@@ -4,6 +4,11 @@ import subprocess
 import os
 from git import Repo
 
+# PackageKit/GI
+#import gi
+#gi.require_version('PackageKitGlib', '1.0')
+#from gi.repository import PackageKitGlib, GLib
+
 # da URL
 AUR_BASE_URL = "https://aur.archlinux.org"
 AUR_RPC_URL = f"{AUR_BASE_URL}/rpc/?v=5&type=search&arg="

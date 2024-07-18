@@ -32,8 +32,7 @@ def update():
     cacheclear()
     os.system("sudo pacman -Syyu")
     aur.update()
-    if pcore.ostype == "cli":
-        flatpak("update")
+    flatpak("update")
 
 def banner():
     print(f"polo-pkg | Polaris Polo Package Manager | {pcore.VERSION}")
@@ -76,26 +75,17 @@ def main():
         update()
     elif args.command == 'install':
         if args.flatpak:
-            if pcore.ostype == "svr":
-                print("Flatpak is not supported on Polaris Server.")
-            elif pcore.ostype == "cli":
-                flatpak(f"install {args.package}")
+            flatpak(f"install {args.package}")
         elif args.flatpak != True:
             aur.install(args.package)
     elif args.command == 'remove':
         if args.flatpak:
-            if pcore.ostype == "svr":
-                print("Flatpak is not supported on Polaris Server.")
-            elif pcore.ostype == "cli":
-                flatpak(f"remove {args.package}")
+            flatpak(f"remove {args.package}")
         elif args.flatpak != True:
             pacman(f"-R {args.package}")
     elif args.command == 'search':
         if args.flatpak:
-            if pcore.ostype == "svr":
-                print("Flatpak is not supported on Polaris Server.")
-            elif pcore.ostype == "cli":
-                flatpak(f"search {args.package}")
+            flatpak(f"search {args.package}")
         elif args.flatpak != True:
             aur.search(args.package)
     elif args.command == "build":

@@ -17,9 +17,7 @@ def config_usr():
 
 cfg = config()
 cfgusr = config_usr()
-ostype = cfg["conf"]["type"]
 ostask = cfg["conf"]["task"]
 editor = cfgusr["conf"]["editor"]
-if ostype != "svr":
-    terminal = cfgusr["conf"]["terminal"]
-    browser = cfgusr["conf"]["browser"]
+terminal = cfgusr["conf"]["terminal"]
+browser = cfgusr["conf"]["browser"]
