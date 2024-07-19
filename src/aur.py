@@ -4,16 +4,66 @@ import subprocess
 import os
 from git import Repo
 
-# PackageKit/GI
-#import gi
-#gi.require_version('PackageKitGlib', '1.0')
-#from gi.repository import PackageKitGlib, GLib
-
 # da URL
 AUR_BASE_URL = "https://aur.archlinux.org"
 AUR_RPC_URL = f"{AUR_BASE_URL}/rpc/?v=5&type=search&arg="
 
-def search(package_name):
+def search_aur(query):
+    url = f"{AUR_RPC_URL}{query}"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        results = response.json().get('results', [])
+    else: 
+        results = None
+    return results
+
+def search_flathub(query):
+    url = f"https://flathub.org/api/v1/apps/search/{query}"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        results = response.json()
+    else: 
+        results = None
+    return results
+
+def search_pacman(query):
+    url = f"https://archlinux.org/packages/search/json/?q={query}"
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        results = response.json().get('results', [])
+    else:
+        results = None
+    return results
+
+def search(query):
+    results_flathub = search_flathub(query)
+    results_aur = search_aur(query)
+    results_pacman = search_pacman(query)
+    if results_flathub != None:
+        for result in results_flathub:
+            if query in result["name"].lower() and "i18n" not in result["name"].lower():
+                print(f"Flathub/Flatpak - {result["name"]}")
+                print(f"description: {result['summary']}")
+                print("")
+    if results_aur != None:
+        for result in results_aur:
+            if query in result["Name"].lower() and "i18n" not in result["Name"].lower():
+                print(f"AUR - {result["Name"]}")
+                print(f"description: {result['Description']}")
+                print("")
+    if results_pacman != None:
+        for result in results_pacman:
+            if query in result["pkgname"].lower() and "i18n" not in result["pkgname"].lower():
+                print(f"Pacman - {result["pkgname"]}")
+                print(f"description: {result['pkgdesc']}")
+                print("")
+    results_num = len(results_pacman) + len(results_aur) + len(results_flathub)
+    print(f"got {results_num} results.")
+
+def netquery(package_name):
     # no, we're not fucking googling AUR packages.
     if package_exists(package_name) != True:
         if package_exists_pacrepos(package_name):

@@ -1,0 +1,10 @@
+.li-dark {
+    border-radius: 10px;
+    background-color: #2e2e2e;
+    color: rgb(194, 194, 194);
+    padding: 20px;
+    width: 600px;
+    height: 10%;
+    margin: 20px 10px;
+    text-align: center;
+}

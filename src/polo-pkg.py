@@ -6,11 +6,6 @@ import pcore
 # this library was a pain in the ass, so don't expect sanity in any of these code comments.
 import aur
 
-# i need to replace this... ever. pls rember
-# f = open("/etc/polaris/type", "r")
-# ostype = f.read().strip()
-# i did rember
-
 # not the game, moron
 def pacman(args):
     os.system(f"bash -c 'sudo pacman {args} --noconfirm'")
@@ -67,6 +62,10 @@ def main():
     # Autoremove command
     auto_remove_parser = subparsers.add_parser('autoremove', help='Removes orphaned packages')
 
+    # Netquery command
+    netquery_parser = subparsers.add_parser('netquery', help='Check if a package exists.')
+    netquery_parser.add_argument('package', type=str, help='The package you want to make sure exists')
+
     args = parser.parse_args()
 
     # Perfectly sane... just ignore the piles of if statements
@@ -92,6 +91,8 @@ def main():
         os.system("makepkg -si")
     elif args.command == "autoremove":
         os.system("sudo pacman -Rns $(pacman -Qdtq)")
+    elif args.command == "netquery":
+        aur.netquery(args.package)
     else:
         parser.print_help()
 

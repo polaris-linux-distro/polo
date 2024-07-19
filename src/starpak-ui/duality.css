@@ -1,0 +1,317 @@
+/* CSS */
+@import url('https://fonts.googleapis.com/css2?family=Cantarell:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+.button-base {
+    appearance: none;
+    border-radius: 6px;
+    box-shadow: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 7px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.button-base:focus:not(:focus-visible):not(.focus-visible) {
+    outline: none;
+}
+
+.button-base:hover {
+    padding: 6px;
+}
+  
+.button-dark {
+    background-color: #2c2c2c;
+    border: 1px solid rgb(51, 51, 51);
+    color: white;
+}
+
+.button-dark:hover {
+  background-color: #444444;
+  border: 2px solid rgb(51, 51, 51);
+}
+
+.button-dark:focus {
+    outline: none;
+}
+
+.button-dark:disabled {
+    background-color: #000000;
+    border-color: rgba(27, 31, 35, .1);
+    color: rgba(255, 255, 255, .8);
+    cursor: default;
+}
+
+.button-dark:active {
+  background-color: #575757;
+}
+
+.button-light {
+    background-color: #d6d6d6;
+    border: 1px solid rgba(27, 31, 35, .15);
+    color: #000000;
+}
+  
+.button-light:hover {
+    background-color: #c2c2c2;
+    border: 2px solid rgba(27, 31, 35, .15);
+}
+  
+.button-light:focus {
+    outline: none;
+}
+  
+.button-light:disabled {
+    background-color: #949494;
+    border-color: rgba(27, 31, 35, .1);
+    color: white;
+    cursor: default;
+}
+  
+.button-light:active {
+    background-color: #a0a0a0;
+}
+
+.body-dark {
+    background-color: rgb(36, 35, 35);
+    color: white;
+}
+
+.body-light {
+    background-color: rgb(206, 206, 206);
+    color: black;
+}
+
+.info-box-dark {
+    border-radius: 10px;
+    background-color: #2e2e2e;
+    color: rgb(194, 194, 194);
+    padding: 20px;
+    width: 300px;
+    margin: 20px 10px;
+    text-align: center;
+}
+
+.info-box-light {
+    border-radius: 10px;
+    background-color: #adadad;
+    color: black;
+    padding: 20px;
+    width: 300px;
+    margin: 20px 10px;
+    text-align: center;
+}
+
+html {
+    font-family: Cantarell;
+}
+
+.input-dark {
+    color: white;
+    background-color: rgb(27, 27, 27);
+    padding: 3px;
+    border: 1px solid #424242;
+    border-radius: 7px;
+}
+
+.input-light {
+    color: black;
+    background-color: white;
+    padding: 3px;
+    border: 1px solid #b8b8b8;
+    border-radius: 7px;
+}
+
+.img-dark {
+    border: 6px solid rgb(58, 58, 58);
+    border-radius: 7px;
+}
+
+.img-light {
+    border: 6px solid rgb(146, 146, 146);
+    border-radius: 7px;
+}
+
+.button-blue {
+    background-color: #0d42b6;
+    border: 1px solid rgb(13, 2, 80);
+    color: white;
+}
+  
+.button-blue:hover {
+    background-color: #0c399b;
+    border: 2px solid rgb(13, 2, 80);
+}
+  
+.button-blue:focus {
+    outline: none;
+}
+  
+.button-blue:disabled {
+    background-color: #000000;
+    border-color: rgba(27, 31, 35, .1);
+    color: white;
+    cursor: default;
+}
+  
+.button-blue:active {
+    background-color: #082b77;
+}
+  
+.button-green {
+    background-color: #0bc50b;
+    border: 1px solid rgba(27, 31, 35, .15);
+    color: white;
+}
+    
+.button-green:hover {
+    background-color: #098b09;
+    border: 2px solid rgba(27, 31, 35, .15);
+}
+    
+.button-green:focus {
+    outline: none;
+}
+    
+.button-green:disabled {
+    background-color: #043104;
+    border-color: rgba(27, 31, 35, .1);
+    color: rgba(255, 255, 255, .8);
+    cursor: default;
+}
+    
+.button-green:active {
+    background-color: #096b09;
+}
+
+.button-red {
+    background-color: #af0808;
+    border: 1px solid rgba(27, 31, 35, .15);
+    color: white;
+}
+  
+.button-red:hover {
+    background-color: #810707;
+    border: 2px solid rgba(27, 31, 35, .15);
+}
+  
+.button-red:focus {
+    outline: none;
+}
+  
+.button-red:disabled {
+    background-color: #360202;
+    border-color: rgba(27, 31, 35, .1);
+    color: rgba(255, 255, 255, .8);
+    cursor: default;
+}
+  
+.button-red:active {
+    background-color: #740505;
+}
+
+/* Typography because we can */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    margin: 20px 0 10px;
+}
+  
+p {
+    margin: 10px 0;
+}
+  
+a {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: bold;
+}
+  
+a:hover {
+    text-decoration: underline;
+}
+
+.label-boxbase {
+    border-radius: 6px;
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 1px;
+    font-size: 14px;
+}
+
+.label-darkbox {
+    background-color: #202020;
+    color: white;
+    border: 1px solid #4b4b4b;
+}
+
+.label-lightbox {
+    background-color: #e4e4e4;
+    color: black;
+    border: 1px solid #c0c0c0;
+}
+
+.button-dark2 {
+    background-color: #222222;
+    border: 1px solid rgb(51, 51, 51);
+    color: white;
+}
+
+.button-dark2:hover {
+  background-color: #353535;
+  border: 2px solid rgb(51, 51, 51);
+}
+
+.button-dark2:focus {
+    outline: none;
+}
+
+.button-dark2:disabled {
+    background-color: #000000;
+    border-color: rgba(27, 31, 35, .1);
+    color: rgba(255, 255, 255, .8);
+    cursor: default;
+}
+
+.button-dark2:active {
+  background-color: #504f4f;
+}
+
+.button-light2 {
+    background-color: #f1f1f1;
+    border: 1px solid rgb(150, 150, 150);
+    color: #000000;
+}
+  
+.button-light2:hover {
+    background-color: #acacac;
+    border: 2px solid rgb(150, 150, 150);
+}
+  
+.button-light2:focus {
+    outline: none;
+}
+  
+.button-light2:disabled {
+    background-color: #9b9b9b;
+    border-color: rgba(46, 49, 53, 0.1);
+    color: black;
+    cursor: default;
+}
+  
+.button-light2:active {
+    background-color: #757575;
+}
+
+.info-box-wrapper {
+    display: flex;
+}
