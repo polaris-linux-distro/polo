@@ -1,8 +1,0 @@
-#!/bin/bash
-
-# Run universal startup script
-if [ -f /etc/polaris-svc.sh ]; then
-    /etc/polaris-svc.sh
-fi
-
-exit 0

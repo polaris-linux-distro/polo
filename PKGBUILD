@@ -6,6 +6,7 @@ arch=('any')
 license=('GPL')
 source=()
 md5sums=()
+depends=('python' 'python-pip' 'python-gitpython' 'python-requests' 'python-pyzmq' 'flatpak' 'pacman-contrib')
 
 package() {
     if [ -f "src/__pycache__" ]; then
