@@ -10,6 +10,3 @@ function get_ini_value() {
     in_section && $1 == key { print $2; exit }
   ' "$file"
 }
-
-export ostype=$(get_ini_value "conf" "type" "/etc/polaris/sys.conf")
-export ostask=$(get_ini_value "conf" "task" "/etc/polaris/sys.conf")

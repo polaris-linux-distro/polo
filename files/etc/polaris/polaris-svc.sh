@@ -4,11 +4,10 @@
 
 source /etc/polaris/lib.sh
 
-export EDITOR=$(get_ini_value "conf" "editor" "$HOME/usr.conf")
+export EDITOR=$(/usr/bin/python3 /usr/share/polaris/pcore-shack.py editor)
 export XDG_DATA_DIRS="/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS"
-export TERMINAL=$(get_ini_value "conf" "terminal" "$HOME/usr.conf")
-export BROWSER=$(get_ini_value "conf" "browser" "$HOME/usr.conf")
-
+export TERMINAL=$(/usr/bin/python3 /usr/share/polaris/pcore-shack.py terminal)
+export BROWSER=$(/usr/bin/python3 /usr/share/polaris/pcore-shack.py browser)
 
 PATH="$PATH:/usr/share/polaris"
 
