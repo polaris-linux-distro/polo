@@ -4,16 +4,22 @@ pkgrel=1
 pkgdesc="Polaris Polo Package manager/Utilities."
 arch=('any')
 license=('GPL')
-source=('src/' 'files/')
-md5sums=('SKIP' 'SKIP')
+source=()
+md5sums=()
 
 package() {
-    rm -rf "$srcdir/src/__pycache__"
-    rm "$srcdir/src/zmq"
-    rm "$srcdir/src/keyboard"
-    cd "$srcdir/files"
+    if [ -f "src/__pycache__" ]; then
+        rm -rf "src/__pycache__"
+    fi
+    if [ -f "src/zmq" ]; then
+        rm "src/zmq"
+    fi
+    if [ -f "src/keyboard" ]; then
+        rm "src/keyboard"
+    fi
+    cd "../files"
     find . -type f -exec install -Dm644 {} "$pkgdir/{}" \;
     
-    cd "$srcdir/src"
+    cd "../src"
     find . -type f -exec install -Dm755 {} "$pkgdir/usr/share/polaris/{}" \;
 }

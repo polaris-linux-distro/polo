@@ -1,3 +1,5 @@
 *.pyc
 keyboard
 zmq
+pkg
+*.pkg.tar.zst
