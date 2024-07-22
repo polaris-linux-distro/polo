@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=On-Screen Keyboard via xvkbd
+Comment=On-Screen Keyboard.
+Exec=xvkbd
+Categories=Utility
