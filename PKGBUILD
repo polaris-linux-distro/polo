@@ -7,6 +7,7 @@ license=('GPL')
 source=()
 md5sums=()
 depends=('python' 'python-pip' 'python-gitpython' 'python-requests' 'python-pyzmq' 'flatpak' 'pacman-contrib')
+install=polaris.install
 
 package() {
     if [ -f "src/__pycache__" ]; then

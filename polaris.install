@@ -1,0 +1,3 @@
+post_install() {
+    echo $(cat /etc/polaris.bashrc) > /etc/skel/.bashrc
+}
