@@ -11,4 +11,5 @@ export BROWSER=$(/usr/bin/python3 /usr/share/polaris/pcore-shack.py browser)
 
 PATH="$PATH:/usr/share/polaris"
 
+nohup qlipper &
 /usr/bin/python /usr/share/polaris/polokeys_user.py
