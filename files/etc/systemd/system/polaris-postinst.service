@@ -8,4 +8,4 @@ Group=root
 Restart=always
 
 [Install]
-Alias=display-manager.target
+Alias=display-manager.service
