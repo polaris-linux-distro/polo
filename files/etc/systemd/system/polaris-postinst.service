@@ -1,0 +1,11 @@
+[Unit]
+Description=Polaris postinst daemon.
+
+[Service]
+ExecStart=/usr/bin/python /usr/share/polaris/polaris-postinst.py
+User=root
+Group=root
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
