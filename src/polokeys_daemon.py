@@ -12,9 +12,6 @@ def open_terminal():
     print(f"Received reply: {message}")
 
 def main():
-    if pcore.ostype == "svr":
-        print("running on server, so nah")
-        return
     # Set up the keyboard shortcut
     keyboard.add_hotkey('ctrl+alt+t', open_terminal)
 

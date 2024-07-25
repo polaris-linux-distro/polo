@@ -1,5 +1,4 @@
 post_install() {
-    echo $(cat /etc/polaris.bashrc) > /etc/skel/.bashrc
     chmod +x /usr/bin/polo-pkg
     chmod +x /usr/bin/polo-adm
     chmod +x /usr/bin/polo-about

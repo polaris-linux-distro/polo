@@ -9,9 +9,6 @@ def terminal():
     subprocess.Popen([pcore.terminal])
 
 def main():
-    if pcore.ostype == "svr":
-        print("running on server, so nah")
-        return
     context = zmq.Context()
     socket = context.socket(zmq.REP)
     socket.bind("tcp://127.0.0.1:5555")
