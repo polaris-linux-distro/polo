@@ -1,4 +1,5 @@
 post_install() {
+    echo "HISTFILE=~/.histfile\nHISTSIZE=1000\nSAVEHIST=1000\nbindkey -e\nzstyle :compinstall filename '$HOME/.zshrc'\nautoload -Uz compinit\ncompinit\nprecmd() {print -rP '(%F{blue}%n%f @ %F{blue}%m%f - %F{blue}%~%f)'}\nPROMPT='%F{green}>>%f '" > /etc/zsh/zshrc
     chmod +x /usr/bin/polo-pkg
     chmod +x /usr/bin/polo-adm
     chmod +x /usr/bin/polo-about
