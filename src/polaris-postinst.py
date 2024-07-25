@@ -12,6 +12,8 @@ aur_list = [
 	'qlipper'
 ]
 
+os.system("plymouth-set-default-theme polaris-postinstall")
+
 os.system("plymouthd")
 os.system("plymouth --show-splash")
 
@@ -22,4 +24,8 @@ for pkg in aur_list:
 os.system("userdel -f builder")
 
 os.system("plymouth --quit")
+os.system("plymouth-set-default-theme polaris")
+os.system("systemctl disable polaris-postinst")
+os.system("systemctl mask polaris-postinst")
+os.system("systemctl enable lightdm")
 os.system("reboot")

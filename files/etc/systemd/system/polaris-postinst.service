@@ -8,4 +8,4 @@ Group=root
 Restart=always
 
 [Install]
-WantedBy=multi-user.target
+Alias=display-manager.target
