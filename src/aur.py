@@ -4,6 +4,7 @@ import subprocess
 import os
 from git import Repo
 import sys
+import glob
 
 # da URL
 AUR_BASE_URL = "https://aur.archlinux.org"
@@ -129,7 +130,7 @@ def update():
     os.system(f"sudo pacman -R {allpkg} --noconfirm")
     
     for pkg in updates:
-        install(pkg, True, True)
+        install(pkg, False, True)
 
 def package_exists_pacrepos(package_name):
     # yet another self explanatory one...
@@ -158,10 +159,15 @@ def install(package_name, stdin, aur_specific=False):
             os.system(f"rm -rf {os.path.expanduser('~')}/.polo/pkgs/{package_name}")
         Repo.clone_from(f"{AUR_BASE_URL}/{package_name}.git", f"{os.path.expanduser('~')}/.polo/pkgs/{package_name}")
         subprocess.run(['makepkg', '-sc', '--noconfirm'], cwd=pkgdir)
+        pattern = '*.pkg.tar.zst'
+        files = glob.glob(f'{pkgdir}/{pattern}')
+
         if stdin == False:
-            subprocess.run(['sudo', 'pacman', '-U', '*.pkg.tar.zst'], cwd=pkgdir)
+            for file in files:
+                subprocess.run(['sudo', 'pacman', '-U', file, '--noconfirm'], cwd=pkgdir)
         elif stdin == True:
-            subprocess.run(['sudo', '-S', 'pacman', '-U', '*.pkg.tar.zst'], input=sys.stdin.read().encode(), cwd=pkgdir)    
+            for file in files:
+                subprocess.run(['sudo', '-S', 'pacman', '-U', file, '--noconfirm'], input=sys.stdin.read().encode(), cwd=pkgdir)    
     else:
         # so sad, too bad the package "ASDFMOVIEPLAYERSSSSSSSSSSSSS" doesn't exist
         print("Package not found")

@@ -77,7 +77,10 @@ def main():
         if args.flatpak:
             flatpak(f"install {args.package}")
         elif args.flatpak != True:
-            aur.install(args.package, True)
+            if args.stdin == True:
+                aur.install(args.package, True)
+            elif args.stdin == False:
+                aur.install(args.package, False)
     elif args.command == 'remove':
         if args.flatpak:
             flatpak(f"remove {args.package}")
