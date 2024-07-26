@@ -3,6 +3,7 @@ import requests
 import subprocess
 import os
 from git import Repo
+import sys
 
 # da URL
 AUR_BASE_URL = "https://aur.archlinux.org"
@@ -144,21 +145,23 @@ def package_exists_pacrepos(package_name):
     else:
         return False
 
-def install(package_name, aur_specific=False):
+def install(package_name, stdin, aur_specific=False):
     # First, is this in normal pacrepos?
     if package_exists_pacrepos(package_name) and aur_specific != True:
         os.system(f"sudo pacman -S {package_name}")
         return
     # If not then keep going
     if package_exists(package_name):
-        oldcwd = os.getcwd()
+        pkgdir = f"{os.path.expanduser('~')}/.polo/pkgs/{package_name}"
         if os.path.exists(f"{os.path.expanduser('~')}/.polo/pkgs/{package_name}"):
             # fuck it, lazy solution and i don't wanna hear shit about it pull requesters
             os.system(f"rm -rf {os.path.expanduser('~')}/.polo/pkgs/{package_name}")
         Repo.clone_from(f"{AUR_BASE_URL}/{package_name}.git", f"{os.path.expanduser('~')}/.polo/pkgs/{package_name}")
-        os.chdir(f"{os.path.expanduser('~')}/.polo/pkgs/{package_name}")
-        subprocess.run(['makepkg', '-si'])
-        os.chdir(oldcwd)
+        subprocess.run(['makepkg', '-sc', '--noconfirm'], cwd=pkgdir)
+        if stdin == False:
+            subprocess.run(['sudo', 'pacman', '-U', '*.pkg.tar.zst'], cwd=pkgdir)
+        elif stdin == True:
+            subprocess.run(['sudo', '-S', 'pacman', '-U', '*.pkg.tar.zst'], input=sys.stdin, cwd=pkgdir)    
     else:
         # so sad, too bad the package "ASDFMOVIEPLAYERSSSSSSSSSSSSS" doesn't exist
         print("Package not found")
