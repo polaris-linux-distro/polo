@@ -129,7 +129,7 @@ def update():
     os.system(f"sudo pacman -R {allpkg} --noconfirm")
     
     for pkg in updates:
-        install(pkg, True)
+        install(pkg, True, True)
 
 def package_exists_pacrepos(package_name):
     # yet another self explanatory one...
