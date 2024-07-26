@@ -15,7 +15,7 @@ aur_list = [
 os.system("useradd -m -s /bin/zsh builder")
 os.system("echo 'y' | passwd builder -s")
 for pkg in aur_list:
-	os.system(f"echo y | sudo -u builder /usr/bin/python /usr/share/polaris/polo-pkg.py install {pkg}")
+	os.system(f"echo y | sudo -u builder /usr/bin/python /usr/share/polaris/polo-pkg.py install {pkg} -s")
 os.system("userdel -f builder")
 
 os.system("systemctl disable polaris-postinst")
