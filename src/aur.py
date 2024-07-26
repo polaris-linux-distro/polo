@@ -161,7 +161,7 @@ def install(package_name, stdin, aur_specific=False):
         if stdin == False:
             subprocess.run(['sudo', 'pacman', '-U', '*.pkg.tar.zst'], cwd=pkgdir)
         elif stdin == True:
-            subprocess.run(['sudo', '-S', 'pacman', '-U', '*.pkg.tar.zst'], input=sys.stdin, cwd=pkgdir)    
+            subprocess.run(['sudo', '-S', 'pacman', '-U', '*.pkg.tar.zst'], input=sys.stdin.read().encode(), cwd=pkgdir)    
     else:
         # so sad, too bad the package "ASDFMOVIEPLAYERSSSSSSSSSSSSS" doesn't exist
         print("Package not found")
