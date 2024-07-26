@@ -1,7 +1,6 @@
 import os
 
 aur_list = [
-	'pcre4',
     'aic94xx-firmware',
     'ast-firmware',
     'wd719x-firmware',
@@ -12,11 +11,12 @@ aur_list = [
 	'qlipper'
 ]
 
-os.system("useradd -m -s /bin/zsh builder")
-os.system("echo 'y' | passwd builder -s")
+os.system("useradd -m -s /bin/zsh polarislinuxtempbuilder")
+os.system("usermod -aG wheel polarislinuxtempbuilder")
+os.system("echo 'y' | passwd polarislinuxtempbuilder -s")
 for pkg in aur_list:
 	os.system(f"echo y | sudo -u builder /usr/bin/python /usr/share/polaris/polo-pkg.py install {pkg} -s")
-os.system("userdel -f builder")
+os.system("userdel -rf polarislinuxtempbuilder")
 
 os.system("systemctl disable polaris-postinst")
 os.system("systemctl mask polaris-postinst")
