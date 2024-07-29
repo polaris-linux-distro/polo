@@ -3,4 +3,7 @@ post_install() {
     chmod +x /usr/bin/polo-pkg
     chmod +x /usr/bin/polo-adm
     chmod +x /usr/bin/polo-about
+    # bruhvbvgh
+    git clone https://gitlab.com/Matt.Jolly/sddm-eucalyptus-drop/
+    mv sddm-eucalyptus-drop /usr/share/sddm/themes/eucalyptus-drop
 }
