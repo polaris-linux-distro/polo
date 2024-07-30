@@ -3,9 +3,4 @@ post_install() {
     chmod +x /usr/bin/polo-pkg
     chmod +x /usr/bin/polo-adm
     chmod +x /usr/bin/polo-about
-    # bruhvbvgh
-    cd /usr/share/sddm/themes
-    wget https://gitlab.com/api/v4/projects/37107648/packages/generic/sddm-eucalyptus-drop/2.0.0/sddm-eucalyptus-drop-v2.0.0.zip
-    unzip sddm-eucalyptus-drop-v2.0.0.zip
-    rm sddm-eucalyptus-drop-v2.0.0.zip
 }
