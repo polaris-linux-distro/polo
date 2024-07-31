@@ -1,4 +1,5 @@
 pkgname=polo
+pkgver=$(/usr/bin/python ./src/polo_version_shell.py)
 pkgrel=1
 pkgdesc="Polaris Polo Package manager/Utilities."
 arch=('any')
@@ -8,9 +9,6 @@ md5sums=()
 depends=('python' 'python-pip' 'python-gitpython' 'python-requests' 'python-pyzmq' 'flatpak' 'pacman-contrib')
 install=polaris.install
 
-pkgver() {
-    /usr/bin/python ./src/polo_version_shell.py
-}
 
 package() {
     if [ -f "src/__pycache__" ]; then
