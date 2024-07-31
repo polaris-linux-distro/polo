@@ -129,42 +129,30 @@ def update():
     os.system(f"sudo pacman -R {allpkg} --noconfirm")
     
     for pkg in updates:
-        install(pkg, False, True)
+        install(pkg, False)
 
 def package_exists_pacrepos(package_name):
-    try:
-        # Run the pacman search command
-        result = subprocess.run(
-            ['pacman', '-Ss', package_name],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True
-        )
+    # Run the pacman search command
+    result = subprocess.run(
+        ['pacman', '-Si', package_name],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True
+    )
 
-        # Check if the search returned results
-        if result.returncode != 0:
-            print(f"Error: {result.stderr}")
-            return
+    # Check if the search returned results
+    if result.returncode != 0:
+        print(f"Error: {result.stderr}")
+        return
 
-        # Split the output by lines
-        lines = result.stdout.splitlines()
-        
-        # Check if the package is found in the official repos or Chaotic-AUR
-        found = False
-        for line in lines:
-            if line.startswith(('core/', 'extra/', 'multilib/', 'chaotic-aur/')):
-                found = True
-                print(line)
+    if result.returncode == 0:
+        return True
+    else: 
+        return False
 
-        if not found:
-            print(f"Package '{package_name}' not found in the repositories.")
-
-    except FileNotFoundError:
-        print("Error: 'pacman' command not found. Make sure it is installed and in your PATH.")
-
-def install(package_name, stdin, aur_specific=False):
+def install(package_name, stdin):
     # First, is this in normal pacrepos?
-    if package_exists_pacrepos(package_name) and aur_specific != True:
+    if package_exists_pacrepos(package_name):
         os.system(f"sudo pacman -S {package_name}")
         return
     # If not then keep going
