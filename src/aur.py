@@ -81,11 +81,14 @@ def search(query):
         for result in results_pacman:
             if query in result["pkgname"].lower() and "i18n" not in result["pkgname"].lower():
                 results_aur_hack.append(result["pkgname"])
+                print(f"Packages - {result["pkgname"]}")
+                print(f"description: {result['pkgdesc']}")
+                print("")
     if results_aur != None:
         for result in results_aur:
             if query in result["Name"].lower() and "i18n" not in result["Name"].lower() and result["Name"] not in results_aur_hack:
-                print(f"Packages - {result["pkgname"]}")
-                print(f"description: {result['pkgdesc']}")
+                print(f"Packages - {result["Name"]}")
+                print(f"description: {result['Description']}")
                 print("")
     results_num = len(results_pacman) + len(results_aur) + len(results_flathub)
     print(f"got {results_num} results.")
