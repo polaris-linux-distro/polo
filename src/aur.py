@@ -30,15 +30,41 @@ def search_flathub(query):
         results = None
     return results
 
-def search_pacman(query):
-    url = f"https://archlinux.org/packages/search/json/?q={query}"
-    response = requests.get(url)
-    
-    if response.status_code == 200:
-        results = response.json().get('results', [])
-    else:
-        results = None
-    return results
+def search_pacman(package_name):
+    # Run the pacman search command
+    result = subprocess.run(
+        ['pacman', '-Ss', package_name],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True
+    )
+
+    # Check if the search returned results
+    if result.returncode != 0:
+        print(f"Error: {result.stderr}")
+        return
+
+    # Split the output by lines
+    lines = result.stdout.splitlines()
+        
+    packages = []
+    for line in lines:
+        # Filter lines that start with the repo name
+        if line.startswith(('core/', 'extra/', 'multilib/', 'chaotic-aur/')):
+            # Extract package name and description
+            parts = line.split(None, 2)
+            if len(parts) >= 3:
+                repo_name = parts[0]
+                package_name = parts[1]
+                description = parts[2]
+                packages.append({
+                    "repository": repo_name,
+                    "name": package_name,
+                    "description": description
+                })
+
+    if packages:
+        return packages
 
 def search(query):
     results_flathub = search_flathub(query)
