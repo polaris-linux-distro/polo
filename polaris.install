@@ -3,3 +3,9 @@ post_install() {
     chmod +x /usr/bin/polo-adm
     chmod +x /usr/bin/about-polaris
 }
+
+post_upgrade() {
+    chmod +x /usr/bin/polo-pkg
+    chmod +x /usr/bin/polo-adm
+    chmod +x /usr/bin/about-polaris
+}
