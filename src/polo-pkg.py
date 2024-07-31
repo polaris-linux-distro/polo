@@ -43,7 +43,7 @@ def main():
 
     # Install command
     install_parser = subparsers.add_parser('install', help='Install a package')
-    install_parser.add_argument('package', type=str, help='The package to install')
+    install_parser.add_argument('package', type=str, help='The package to install', nargs='+')
     install_parser.add_argument('-f', '--flatpak', action='store_true', help='Install from Flatpak')
     install_parser.add_argument('-s', '--stdin', action='store_true', help='Take the password from STDIN')
 
