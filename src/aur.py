@@ -79,10 +79,10 @@ def search(query):
                 print("")
     if results_pacman != None:
         for result in results_pacman:
-            if query in result["pkgname"].lower() and "i18n" not in result["pkgname"].lower():
-                results_aur_hack.append(result["pkgname"])
-                print(f"Packages - {result["pkgname"]}")
-                print(f"description: {result['pkgdesc']}")
+            if query in result["name"].lower() and "i18n" not in result["name"].lower():
+                results_aur_hack.append(result["name"])
+                print(f"Packages - {result["name"]}")
+                print(f"description: {result['description']}")
                 print("")
     if results_aur != None:
         for result in results_aur:
@@ -90,8 +90,6 @@ def search(query):
                 print(f"Packages - {result["Name"]}")
                 print(f"description: {result['Description']}")
                 print("")
-    results_num = len(results_pacman) + len(results_aur) + len(results_flathub)
-    print(f"got {results_num} results.")
 
 def netquery(package_name):
     # no, we're not fucking googling AUR packages.
