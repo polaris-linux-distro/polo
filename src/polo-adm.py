@@ -15,12 +15,19 @@ def secure_wipe(dev):
     os.system(f"dd if=/dev/zero of={dev} bs=446 count=1")
     print("Wiping disk... (may take a while)")
     size = get_device_size(dev)
-    with tqdm.tqdm(range(size * 2), unit="chunk") as tq:
+    with tqdm.tqdm(range(size * 4), unit="chunk") as tq:
         with open(dev, "wb") as dev_io:
             for __ in range(size):
                 tq.update()
                 dev_io.write(os.urandom(1))
-
+        with open(dev, "wb") as dev_io:
+            for __ in range(size):
+                tq.update()
+                dev_io.write(os.urandom(1))
+        with open(dev, "wb") as dev_io:
+            for __ in range(size):
+                tq.update()
+                dev_io.write(b'\x00')
         with open(dev, "wb") as dev_io:
             for __ in range(size):
                 tq.update()
