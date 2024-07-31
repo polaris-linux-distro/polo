@@ -35,9 +35,9 @@ def secure_wipe(dev):
 
 # well ain't dat simpel
 def rebuild_boot():
-    print("Rebuilding boot info")
+    print("Rebuilding bootloader...")
     os.system("mkinitcpio -P")
-    os.system("grub-mkconfig -o /boot/grub/grub.cfg")
+    os.system(open("/etc/limine_hook_command", 'r').read())
 
 def banner():
     print(f"polo-adm | Polaris Polo Admin Tools | {pcore.VERSION}")
@@ -53,7 +53,7 @@ def main():
     secure_wipe_parser.add_argument('disk', type=str, help='The disk to wipe')
 
     # Rebuild-boot command
-    rebuild_boot_parser = subparsers.add_parser('rebuild-boot', help='Rebuilds the GRUB config, as well as the initramfs.')
+    rebuild_boot_parser = subparsers.add_parser('rebuild-boot', help='Reinstalls Limine, as well as rebuilding the initramfs.')
 
     args = parser.parse_args()
 
