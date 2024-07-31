@@ -39,11 +39,6 @@ def search_pacman(package_name):
         text=True
     )
 
-    # Check if the search returned results
-    if result.returncode != 0:
-        print(f"Error: {result.stderr}")
-        return
-
     # Split the output by lines
     lines = result.stdout.splitlines()
         
