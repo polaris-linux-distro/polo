@@ -1,5 +1,5 @@
 post_install() {
     chmod +x /usr/bin/polo-pkg
     chmod +x /usr/bin/polo-adm
-    chmod +x /usr/bin/polo-about
+    chmod +x /usr/bin/about-polaris
 }
