@@ -37,7 +37,7 @@ def secure_wipe(dev):
 def rebuild_boot():
     print("Rebuilding bootloader...")
     os.system("mkinitcpio -P")
-    os.system(open("/etc/limine_hook_command", 'r').read())
+    os.system(open("/etc/limine_upgrade_command", 'r').read())
 
 def banner():
     print(f"polo-adm | Polaris Polo Admin Tools | {pcore.VERSION}")
