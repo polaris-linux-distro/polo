@@ -3,9 +3,6 @@
 # shellcheck source=/dev/null
 # shellcheck disable=2009
 
-###################################################################################
-# This script uses lsb_release, lscpu, and glxinfo. make sure they are installed. #
-###################################################################################
 #
 # START OF SCRIPT
 #
@@ -20,10 +17,9 @@ Shell="$(basename "$SHELL")"
 CPU="$(lscpu | grep Model\ name | sed 's/name:\ //' | sed "s/([^)]*)/()/g" | sed 's/[)(]//g')"
 GPU="$(glxinfo -B | grep Device: | sed "s/([^)]*)/()/g" | sed 's/[)(]//g')"
 RAM="$(free -h | awk '/^Mem:/ {print $3 " / " $2}')"
-OS1="$(lsb_release -si)"
+OS1="$(grep '^NAME=' /etc/os-release | cut -d= -f2 | tr -d '"')"
 Packages="$(pacman -Q | wc -l)"
 PoloVersion="$(/usr/bin/python /usr/share/polaris/polo_version_shell.py)"
-# OS="$(lsb_release -sirc)" -- NOTE: ALWAYS SHOWS ROLLING
 
 if [ -z "${WM}" ]; then
 	if [ "${XDG_CURRENT_DESKTOP}" ]; then
