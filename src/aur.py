@@ -140,11 +140,6 @@ def package_exists_pacrepos(package_name):
         text=True
     )
 
-    # Check if the search returned results
-    if result.returncode != 0:
-        print(f"Error: {result.stderr}")
-        return
-
     if result.returncode == 0:
         return True
     else: 
