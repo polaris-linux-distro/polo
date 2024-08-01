@@ -1,6 +1,6 @@
 pkgname=polo
 pkgver=$(/usr/bin/python ./src/polo_version_shell.py)
-pkgrel=3
+pkgrel=1
 pkgdesc="Polaris Polo Package manager/Utilities."
 arch=('any')
 license=('GPL')
