@@ -177,10 +177,13 @@ def install(package_name, stdin):
     # Also discord and vesktop
     if package_name == "steam":
         flatpak("install com.valvesoftware.Steam")
+        return
     elif package_name == "discord":
         flatpak("install com.discordapp.Discord")
+        return
     elif package_name == "vencord" or package_name == "vesktop":
         flatpak("install dev.vencord.Vesktop")
+        return
     # If not then is this in normal pacrepos?
     if package_exists_pacrepos(package_name):
         os.system(f"sudo pacman -S {package_name}")
