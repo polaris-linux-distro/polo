@@ -108,7 +108,10 @@ def package_exists(package_name):
 def get_installed_aur_packages():
     # do.. do you need a comment here? its just gives you the installed packages.
     aur_packages = list()
-    output = subprocess.check_output(['sudo', 'pacman', '-Qm'])
+    result = subprocess.run(['sudo', 'pacman', '-Qm'], capture_output=True, text=True)
+    output = result.stdout
+    if result.returncode != 0:
+        return None
     packages = output.decode('utf-8').splitlines()
     aur_packages_bfp = [pkg.split()[0] for pkg in packages]
     for pkg in aur_packages_bfp:
@@ -119,6 +122,8 @@ def get_installed_aur_packages():
 def check_for_updates():
     # i have no idea- it just checks updates
     packages = get_installed_aur_packages()
+    if packages == None:
+        return None
     aur_info_url = f"{AUR_BASE_URL}/rpc/?v=5&type=info&arg[]="
     for package in packages:
         aur_info_url += f"{package}&arg[]="
