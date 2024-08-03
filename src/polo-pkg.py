@@ -3,7 +3,7 @@ import os
 import argparse
 import pcore
 
-# this library was a pain in the ass, so don't expect sanity in any of these code comments.
+# Custom Libraries
 import aur
 
 # not the game, moron
@@ -49,12 +49,14 @@ def main():
     install_parser.add_argument('packages', type=str, nargs='+', help='The package to install')
     install_parser.add_argument('-f', '--flatpak', action='store_true', help='Install from Flatpak')
     install_parser.add_argument('-s', '--stdin', action='store_true', help='Take the password from STDIN')
+    install_parser.add_argument('-n', '--noconfirm', action='store_true', help='No confirmation.')
 
     # Remove command
-    remove_parser = subparsers.add_parser('remove', nargs='+', help='Remove a package')
-    remove_parser.add_argument('package', type=str, help='The package to remove')
+    remove_parser = subparsers.add_parser('remove', help='Remove a package')
+    remove_parser.add_argument('packages', type=str, nargs='+', help='The package to remove')
     remove_parser.add_argument('-f', '--flatpak', action='store_true', help='Remove from Flatpak')
     remove_parser.add_argument('-s', '--stdin', action='store_true', help='Take the password from STDIN')
+    remove_parser.add_argument('-n', '--noconfirm', action='store_true', help='No confirmation.')
 
     # Search command
     search_parser = subparsers.add_parser('search', help='Search for a package')
@@ -83,22 +85,36 @@ def main():
             for package in args.packages:
                 flatpak(f"install {package}")
         elif args.flatpak != True:
-            for package in args.packages:
-                aur.install(package, args.stdin)
+            if args.stdin == False or args.noconfirm == False:
+                input_user = input("Do you want to continue? [Y/n]: ").strip().lower()
+                if input_user == 'n':
+                    return
+                elif input_user == 'y':
+                    for package in args.packages:
+                        aur.install(package, args.stdin)
+            elif args.stdin == False or args.noconfirm == False:
+                for package in args.packages:
+                    aur.install(package, args.stdin)
     elif args.command == 'remove':
         if args.flatpak:
             for package in args.packages:
                 flatpak(f"remove {package}")
         elif args.flatpak != True:
-            for package in args.packages:
-                pacman(f"-R {package}", args.stdin)
+            if args.stdin == False or args.noconfirm == False:
+                input_user = input("Do you want to continue? [Y/n]: ").strip().lower()
+                if input_user == 'n':
+                    return
+                elif input_user == 'y':
+                    for package in args.packages:
+                        pacman(f'-R {package}', args.stdin)
+            elif args.stdin == False or args.noconfirm == False:
+                for package in args.packages:
+                    pacman(f'-R package', args.stdin)
     elif args.command == 'search':
         if args.flatpak:
             flatpak(f"search {args.package}")
         elif args.flatpak != True:
             aur.search(args.package)
-    elif args.command == "build":
-        os.system("makepkg -si")
     elif args.command == "autoremove":
         pacman("-Rns $(pacman -Qdtq)", args.stdin)
     elif args.command == "netquery":
