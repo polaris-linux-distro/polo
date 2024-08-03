@@ -189,6 +189,9 @@ def install(package_name, stdin):
     elif package_name == "vencord" or package_name == "vesktop":
         flatpak("install dev.vencord.Vesktop")
         return
+    elif package_name == "prismlauncher":
+        flatpak("install org.prismlauncher.PrismLauncher")
+        return
     # If not then is this in normal pacrepos?
     if package_exists_pacrepos(package_name):
         os.system(f"sudo pacman -S {package_name}")
