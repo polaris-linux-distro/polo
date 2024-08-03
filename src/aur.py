@@ -172,30 +172,8 @@ def package_exists_pacrepos(package_name):
     else: 
         return False
 
-# packages but superflat world
-def flatpak(args):
-    os.system(f"bash -c '/usr/bin/flatpak {args}'")
-
 def install(package_name, stdin):
-    # First use special rules (because steam is a bitch)
-    # When steam stops being a picky dconf asshole then we don't need this.
-    # Also discord and vesktop
-    if package_name == "steam":
-        flatpak("install com.valvesoftware.Steam")
-        return
-    elif package_name == "discord":
-        flatpak("install com.discordapp.Discord")
-        return
-    elif package_name == "vencord" or package_name == "vesktop":
-        flatpak("install dev.vencord.Vesktop")
-        return
-    elif package_name == "prismlauncher":
-        flatpak("install org.prismlauncher.PrismLauncher")
-        return
-    elif package_name == "gdlauncher":
-        flatpak("install io.gdevs.GDLauncher")
-        return
-    # If not then is this in normal pacrepos?
+    # First, is this in normal pacrepos?
     if package_exists_pacrepos(package_name):
         os.system(f"sudo pacman -S {package_name}")
         return
