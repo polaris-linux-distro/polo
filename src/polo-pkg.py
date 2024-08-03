@@ -7,8 +7,11 @@ import pcore
 import aur
 
 # not the game, moron
-def pacman(args):
-    os.system(f"bash -c 'sudo pacman {args} --noconfirm'")
+def pacman(args, stdin):
+    if stdin == True:
+        os.system(f"bash -c 'sudo -S pacman {args} --noconfirm'")
+    if stdin == False:
+        os.system(f"bash -c 'sudo pacman {args} --noconfirm'")
 
 # packages but superflat world
 def flatpak(args):
@@ -43,14 +46,15 @@ def main():
 
     # Install command
     install_parser = subparsers.add_parser('install', help='Install a package')
-    install_parser.add_argument('package', type=str, help='The package to install')
+    install_parser.add_argument('packages', type=str, nargs='+', help='The package to install')
     install_parser.add_argument('-f', '--flatpak', action='store_true', help='Install from Flatpak')
     install_parser.add_argument('-s', '--stdin', action='store_true', help='Take the password from STDIN')
 
     # Remove command
-    remove_parser = subparsers.add_parser('remove', help='Remove a package')
+    remove_parser = subparsers.add_parser('remove', nargs='+', help='Remove a package')
     remove_parser.add_argument('package', type=str, help='The package to remove')
     remove_parser.add_argument('-f', '--flatpak', action='store_true', help='Remove from Flatpak')
+    remove_parser.add_argument('-s', '--stdin', action='store_true', help='Take the password from STDIN')
 
     # Search command
     search_parser = subparsers.add_parser('search', help='Search for a package')
@@ -62,6 +66,7 @@ def main():
 
     # Autoremove command
     auto_remove_parser = subparsers.add_parser('autoremove', help='Removes orphaned packages')
+    auto_remove_parser.add_argument('-s', '--stdin', action='store_true', help='Take the password from STDIN')
 
     # Netquery command
     netquery_parser = subparsers.add_parser('netquery', help='Check if a package exists.')
@@ -75,17 +80,18 @@ def main():
         update()
     elif args.command == 'install':
         if args.flatpak:
-            flatpak(f"install {args.package}")
+            for package in args.packages:
+                flatpak(f"install {package}")
         elif args.flatpak != True:
-            if args.stdin == True:
-                aur.install(args.package, True)
-            elif args.stdin == False:
-                aur.install(args.package, False)
+            for package in args.packages:
+                aur.install(package, args.stdin)
     elif args.command == 'remove':
         if args.flatpak:
-            flatpak(f"remove {args.package}")
+            for package in args.packages:
+                flatpak(f"remove {package}")
         elif args.flatpak != True:
-            pacman(f"-R {args.package}")
+            for package in args.packages:
+                pacman(f"-R {package}", args.stdin)
     elif args.command == 'search':
         if args.flatpak:
             flatpak(f"search {args.package}")
@@ -94,7 +100,7 @@ def main():
     elif args.command == "build":
         os.system("makepkg -si")
     elif args.command == "autoremove":
-        os.system("sudo pacman -Rns $(pacman -Qdtq)")
+        pacman("-Rns $(pacman -Qdtq)", args.stdin)
     elif args.command == "netquery":
         aur.netquery(args.package)
     else:

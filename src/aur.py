@@ -175,7 +175,7 @@ def package_exists_pacrepos(package_name):
 def install(package_name, stdin):
     # First, is this in normal pacrepos?
     if package_exists_pacrepos(package_name):
-        os.system(f"sudo pacman -S {package_name}")
+        os.system(f"sudo pacman -S {package_name} --noconfirm")
         return
     # If not then keep going
     elif package_exists(package_name):
