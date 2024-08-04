@@ -17,6 +17,10 @@ def pacman(args, stdin):
 def flatpak(args):
     os.system(f"bash -c '/usr/bin/flatpak {args}'")
 
+def inst_from_list(packages, stdin):
+    for package in packages:
+        aur.install(package, stdin)
+
 # does this work? maybe lemme test one sec
 # 30 secs later it works
 # very nice
@@ -80,36 +84,41 @@ def main():
 
     if args.command == 'update':
         update()
+        print("Reloading usr.conf")
+        os.system("python /usr/share/polaris/xdg-mime-hook.py")
     elif args.command == 'install':
         if args.flatpak:
             for package in args.packages:
                 flatpak(f"install {package}")
         elif args.flatpak != True:
-            if args.stdin == False or args.noconfirm == False:
-                input_user = input("Do you want to continue? [Y/n]: ").strip().lower()
-                if input_user == 'n':
-                    return
-                elif input_user == 'y':
-                    for package in args.packages:
-                        aur.install(package, args.stdin)
+            if args.stdin == True or args.noconfirm == True:
+                inst_from_list(args.packages, args.stdin)
             elif args.stdin == False or args.noconfirm == False:
-                for package in args.packages:
-                    aur.install(package, args.stdin)
+                    input_user = input("Do you want to continue? [Y/n]: ").strip().lower()
+                    if input_user == 'n':
+                        return
+                    elif input_user == 'y':
+                        inst_from_list(args.packages, args.stdin)
+        print("Reloading usr.conf")
+        os.system("python /usr/share/polaris/xdg-mime-hook.py")
+
     elif args.command == 'remove':
         if args.flatpak:
             for package in args.packages:
                 flatpak(f"remove {package}")
         elif args.flatpak != True:
-            if args.stdin == False or args.noconfirm == False:
+            if args.stdin == True or args.noconfirm == True:
+                for package in args.packages:
+                    pacman(f'-R package', args.stdin)
+            elif args.stdin == False or args.noconfirm == False:
                 input_user = input("Do you want to continue? [Y/n]: ").strip().lower()
                 if input_user == 'n':
                     return
                 elif input_user == 'y':
                     for package in args.packages:
                         pacman(f'-R {package}', args.stdin)
-            elif args.stdin == False or args.noconfirm == False:
-                for package in args.packages:
-                    pacman(f'-R package', args.stdin)
+        print("Reloading usr.conf")
+        os.system("python /usr/share/polaris/xdg-mime-hook.py")
     elif args.command == 'search':
         if args.flatpak:
             flatpak(f"search {args.package}")
@@ -117,6 +126,8 @@ def main():
             aur.search(args.package)
     elif args.command == "autoremove":
         pacman("-Rns $(pacman -Qdtq)", args.stdin)
+        print("Reloading usr.conf")
+        os.system("python /usr/share/polaris/xdg-mime-hook.py")
     elif args.command == "netquery":
         aur.netquery(args.package)
     else:
