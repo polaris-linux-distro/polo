@@ -5,6 +5,8 @@ import os
 from git import Repo
 import sys
 import glob
+import re
+import packagemanagement.pacman.db as pacdb
 
 # da URL
 AUR_BASE_URL = "https://aur.archlinux.org"
@@ -159,24 +161,23 @@ def update():
         install(pkg, False)
 
 def package_exists_pacrepos(package_name):
-    # Run the pacman search command
-    result = subprocess.run(
-        ['pacman', '-Si', package_name],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        text=True
-    )
+    # not this function getting repurposed
+    packages = pacdb.get_package_names_from_db()
+    pattern = r'.*\b' + package_name + '\b.*'
+    all_packages = list()
+    for package in packages:
+        all_packages.append(re.findall(pattern, package))
+    return all_packages
 
-    if result.returncode == 0:
-        return True
-    else: 
-        return False
 
 def install(package_name, stdin):
     # First, is this in normal pacrepos?
-    if package_exists_pacrepos(package_name):
+    package_possibilities = package_exists_pacrepos(package_name)
+    if len(package_possibilities) == 1:
         os.system(f"sudo pacman -S {package_name} --noconfirm")
         return
+    elif len(package_possibilities) > 1:
+        
     # If not then keep going
     elif package_exists(package_name):
         pkgdir = f"{os.path.expanduser('~')}/.polo/pkgs/{package_name}"
